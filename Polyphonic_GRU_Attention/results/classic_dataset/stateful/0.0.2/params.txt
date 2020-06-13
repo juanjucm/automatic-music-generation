@@ -1,0 +1,12 @@
+- all_notes[0:100]
+- 200 epoch
+- 1 batch - por ser statefull, las secuencias van ordenadas (ver libro)
+- 100 sequence_length
+
+model = keras.models.Sequential()
+model.add(keras.layers.Input(shape=(100 ,vocab_size), batch_size=1))
+model.add(keras.layers.GRU(256, return_sequences=True, stateful=True, dropout=0.2, recurrent_dropout=0.2))
+model.add(keras.layers.GRU(256, return_sequences=True, stateful=True, dropout=0.2, recurrent_dropout=0.2))
+model.add(keras.layers.TimeDistributed(keras.layers.Dense(vocab_size, activation="softmax")))
+
+model.compile(loss=sparse_categorical_crossentropy, optimizer=adam)

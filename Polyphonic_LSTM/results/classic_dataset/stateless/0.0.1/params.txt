@@ -1,0 +1,23 @@
+model = tf.keras.models.Sequential()
+model.add(LSTM(
+        512,
+        input_shape=(norm_input.shape[1], norm_input.shape[2]),
+        recurrent_dropout=0.3,
+        return_sequences=True
+    ))
+model.add(LSTM(512, return_sequences=True, recurrent_dropout=0.3,))
+model.add(LSTM(512))
+model.add(BatchNormalization())
+model.add(Dropout(0.3))
+model.add(Dense(256))
+model.add(Activation('relu'))
+model.add(BatchNormalization())
+model.add(Dropout(0.3))
+model.add(Dense(len(set(all_notes))))
+model.add(Activation('softmax'))
+model.compile(loss='categorical_crossentropy', optimizer='rmsprop')
+
+- 141 epoch
+- 128 batch
+- 100 sequence_length
+- dataset complejo -> notas con el tempo añadido.
